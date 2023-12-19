@@ -12,23 +12,32 @@ public class PlayerScript : MonoBehaviour
     private Rigidbody rb;
     private Vector3 moveDirection;
     private PlayerInput playerInput;
-    private InputAction moveAction;
+    private InputAction moveAction, jumpAction, interactAction, crouchAction, stirAction;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
         playerInput = GetComponent<PlayerInput>();
+
         moveAction = playerInput.actions.FindAction("Move");
+        jumpAction = playerInput.actions.FindAction("Jump");
+        interactAction = playerInput.actions.FindAction("Interact");
+        crouchAction = playerInput.actions.FindAction("Crouch");
+        stirAction = playerInput.actions.FindAction("Stir");
+
 
     }
     private void FixedUpdate()
     {
         MovePlayer();
+        if (stirAction.IsPressed()) { print("HELLO"); }
     }
     void MovePlayer()
     {
-        moveDirection = new Vector3(moveAction.ReadValue<Vector2>().x*moveSpeed, 0, moveAction.ReadValue<Vector2>().y * moveSpeed);
+        moveDirection = new Vector3
+            (Mathf.Clamp((moveAction.ReadValue<Vector2>().x * moveSpeed), int.MinValue, moveSpeed), 
+            0, 
+            (Mathf.Clamp((moveAction.ReadValue<Vector2>().y * moveSpeed), int.MinValue, moveSpeed)));
         rb.AddForce(moveDirection);
-        print(moveAction.ReadValue<Vector2>());
     }
 }

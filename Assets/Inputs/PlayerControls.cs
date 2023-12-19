@@ -53,6 +53,42 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Jump"",
+                    ""type"": ""Button"",
+                    ""id"": ""36131700-96c6-45b5-936f-9d537425da43"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Crouch"",
+                    ""type"": ""Button"",
+                    ""id"": ""c153c128-8c01-446b-a128-5d5b28c9b82e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Interact"",
+                    ""type"": ""Button"",
+                    ""id"": ""7eb119c9-2b3f-49d1-97d4-670446fa305d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Stir"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""e6756637-049a-4505-aeaf-e0a82be496e4"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -132,6 +168,50 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""eb2f9ca7-22bd-4eb9-9365-ef62a2f526d1"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d817b53e-26e6-439b-b0ec-0a39530ddd0d"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Crouch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6422c0e1-68f6-4de5-be3b-d328adb59501"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Stir"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""15e3d82e-0b7c-440d-aa80-575077cbd38a"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -143,6 +223,10 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_ShrimpActionMap_Move = m_ShrimpActionMap.FindAction("Move", throwIfNotFound: true);
         m_ShrimpActionMap_Restart = m_ShrimpActionMap.FindAction("Restart", throwIfNotFound: true);
         m_ShrimpActionMap_QuitGame = m_ShrimpActionMap.FindAction("QuitGame", throwIfNotFound: true);
+        m_ShrimpActionMap_Jump = m_ShrimpActionMap.FindAction("Jump", throwIfNotFound: true);
+        m_ShrimpActionMap_Crouch = m_ShrimpActionMap.FindAction("Crouch", throwIfNotFound: true);
+        m_ShrimpActionMap_Interact = m_ShrimpActionMap.FindAction("Interact", throwIfNotFound: true);
+        m_ShrimpActionMap_Stir = m_ShrimpActionMap.FindAction("Stir", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -207,6 +291,10 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_ShrimpActionMap_Move;
     private readonly InputAction m_ShrimpActionMap_Restart;
     private readonly InputAction m_ShrimpActionMap_QuitGame;
+    private readonly InputAction m_ShrimpActionMap_Jump;
+    private readonly InputAction m_ShrimpActionMap_Crouch;
+    private readonly InputAction m_ShrimpActionMap_Interact;
+    private readonly InputAction m_ShrimpActionMap_Stir;
     public struct ShrimpActionMapActions
     {
         private @PlayerControls m_Wrapper;
@@ -214,6 +302,10 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @Move => m_Wrapper.m_ShrimpActionMap_Move;
         public InputAction @Restart => m_Wrapper.m_ShrimpActionMap_Restart;
         public InputAction @QuitGame => m_Wrapper.m_ShrimpActionMap_QuitGame;
+        public InputAction @Jump => m_Wrapper.m_ShrimpActionMap_Jump;
+        public InputAction @Crouch => m_Wrapper.m_ShrimpActionMap_Crouch;
+        public InputAction @Interact => m_Wrapper.m_ShrimpActionMap_Interact;
+        public InputAction @Stir => m_Wrapper.m_ShrimpActionMap_Stir;
         public InputActionMap Get() { return m_Wrapper.m_ShrimpActionMap; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -232,6 +324,18 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @QuitGame.started += instance.OnQuitGame;
             @QuitGame.performed += instance.OnQuitGame;
             @QuitGame.canceled += instance.OnQuitGame;
+            @Jump.started += instance.OnJump;
+            @Jump.performed += instance.OnJump;
+            @Jump.canceled += instance.OnJump;
+            @Crouch.started += instance.OnCrouch;
+            @Crouch.performed += instance.OnCrouch;
+            @Crouch.canceled += instance.OnCrouch;
+            @Interact.started += instance.OnInteract;
+            @Interact.performed += instance.OnInteract;
+            @Interact.canceled += instance.OnInteract;
+            @Stir.started += instance.OnStir;
+            @Stir.performed += instance.OnStir;
+            @Stir.canceled += instance.OnStir;
         }
 
         private void UnregisterCallbacks(IShrimpActionMapActions instance)
@@ -245,6 +349,18 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @QuitGame.started -= instance.OnQuitGame;
             @QuitGame.performed -= instance.OnQuitGame;
             @QuitGame.canceled -= instance.OnQuitGame;
+            @Jump.started -= instance.OnJump;
+            @Jump.performed -= instance.OnJump;
+            @Jump.canceled -= instance.OnJump;
+            @Crouch.started -= instance.OnCrouch;
+            @Crouch.performed -= instance.OnCrouch;
+            @Crouch.canceled -= instance.OnCrouch;
+            @Interact.started -= instance.OnInteract;
+            @Interact.performed -= instance.OnInteract;
+            @Interact.canceled -= instance.OnInteract;
+            @Stir.started -= instance.OnStir;
+            @Stir.performed -= instance.OnStir;
+            @Stir.canceled -= instance.OnStir;
         }
 
         public void RemoveCallbacks(IShrimpActionMapActions instance)
@@ -267,5 +383,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnMove(InputAction.CallbackContext context);
         void OnRestart(InputAction.CallbackContext context);
         void OnQuitGame(InputAction.CallbackContext context);
+        void OnJump(InputAction.CallbackContext context);
+        void OnCrouch(InputAction.CallbackContext context);
+        void OnInteract(InputAction.CallbackContext context);
+        void OnStir(InputAction.CallbackContext context);
     }
 }
