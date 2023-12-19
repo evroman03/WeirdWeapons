@@ -30,7 +30,7 @@ public class PlayerScript : MonoBehaviour
     private void FixedUpdate()
     {
         MovePlayer();
-        if (stirAction.IsPressed()) { print("HELLO"); }
+        //if (stirAction.ReadValue<bool>() { print("HELLO"); }
     }
     void MovePlayer()
     {
