@@ -5,24 +5,29 @@ using UnityEngine.InputSystem;
 
 public class PlayerScript : MonoBehaviour
 {
-    private float movementAD;
-    private float moveSpeed;
+    PlayerInput playerInput;
+    InputAction moveAction;
+    [SerializeField] private float moveSpeed = 100f;
+    private Rigidbody rb;
+    private Vector3 moveDirection;
 
-    Rigidbody rb;
-    private PlayerControls controls;
+    private void Start()
 
-
-    // Start is called before the first frame update
-    void Start()
     {
-        controls = new PlayerControls();
-        controls.ShrimpActionMap.Move.performed += ctx => movementAD = ctx.ReadValue<float>();
+        rb = GetComponent<Rigidbody>();
+        playerInput = GetComponent<PlayerInput>();
+        moveAction = playerInput.actions.FindAction("Move");
 
     }
-
-    // Update is called once per frame
-    void FixedUpdate()
+    private void FixedUpdate()
     {
-        rb.velocity = new Vector3(movementAD, 0, 0);
+        MovePlayer();
+    }
+    void MovePlayer()
+    {
+        Vector2 direction = moveAction.ReadValue<Vector2>();
+        moveDirection = new Vector3(direction.x*moveSpeed, 0, 0);
+        rb.AddForce(moveDirection);
+        print(moveAction.ReadValue<Vector2>());
     }
 }
