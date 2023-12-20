@@ -7,8 +7,10 @@ public class PlayerScript : MonoBehaviour
 {
 
     [SerializeField] private float moveSpeed = 100f;
+    [SerializeField] private bool isCrouching = false;
 
     private PlayerControls playerControls;
+
 
     private Rigidbody rb;
     private Vector3 moveDirection;
@@ -32,7 +34,16 @@ public class PlayerScript : MonoBehaviour
     }
     private void Crouch()
     {
-        print("HELLO");
+        if(!isCrouching)
+        {
+            transform.localScale = new Vector3(transform.localScale.x, Mathf.Lerp(transform.localScale.y,transform.localScale.y/2, 1), transform.localScale.z);
+            isCrouching=true;
+        }
+        else
+        {
+            transform.localScale = new Vector3(transform.localScale.x, Mathf.Lerp(transform.localScale.y, transform.localScale.y * 2, 1), transform.localScale.z);
+            isCrouching =false;
+        }
     }
     private void Jump()
     {
