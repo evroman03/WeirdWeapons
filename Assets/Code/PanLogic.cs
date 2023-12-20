@@ -13,8 +13,6 @@ public class PanLogic : MonoBehaviour
     private float xRotation = 0;
     [SerializeField] private float max = 45;
     [SerializeField] private float min = -10;
-    private bool headedUp = false;
-    private bool headedDown = false;
 
     private float acceleration = 0; 
 
@@ -25,29 +23,74 @@ public class PanLogic : MonoBehaviour
 
     void Update()
     {
-        if (Input.mousePosition.y - xLastFrame > 0 && headedUp == true)
+        NewMove();
+
+    }
+
+    private void NewMove()
+    {
+        if (Input.mousePosition.y - xLastFrame > 0)
         {
-            acceleration += 0.1f;
-        }
-        else if (Input.mousePosition.y - xLastFrame > 0 && headedUp == false)
-        {
-            acceleration = 0f;
-            headedUp = true;
-            headedDown = false;
+            acceleration += 1f;
         }
 
-        if (Input.mousePosition.y - xLastFrame < 0 && headedDown == true)
+        if (Input.mousePosition.y - xLastFrame < 0)
         {
-            acceleration += 0.1f;
-        }
-        else if (Input.mousePosition.y - xLastFrame < 0 && headedDown == false)
-        {
-            acceleration = 0f;
-            headedUp = false;
-            headedDown = true;
+            acceleration -= 1f;
         }
 
-        xRotation += (Input.mousePosition.y - xLastFrame) / 5; 
+        if (Input.mousePosition.y - xLastFrame == 0)
+        {
+            if (acceleration > 0)
+            {
+                acceleration -= 0.5f;
+            }
+            else if (acceleration < 0)
+            {
+                acceleration += 0.5f;
+            }
+        }
+
+        xRotation += acceleration;
+
+        if (xRotation > max)
+        {
+            xRotation = max;
+        }
+        else if (xRotation < min)
+        {
+            xRotation = min;
+        }
+
+        this.gameObject.transform.rotation = Quaternion.Euler(xRotation, -180, -90);
+        xLastFrame = Input.mousePosition.y;
+    }
+
+    private void OldMove()
+    {
+        if (Input.mousePosition.y - xLastFrame > 0)
+        {
+            acceleration += 1f;
+        }
+
+        if (Input.mousePosition.y - xLastFrame < 0)
+        {
+            acceleration -= 1f;
+        }
+
+        if (Input.mousePosition.y - xLastFrame == 0)
+        {
+            if (acceleration > 0)
+            {
+                acceleration -= 0.1f;
+            }
+            else if (acceleration < 0)
+            {
+                acceleration += 0.1f;
+            }
+        }
+
+        xRotation += (Input.mousePosition.y - xLastFrame + acceleration) / 5;
 
         if (xRotation > max)
         {
@@ -62,6 +105,5 @@ public class PanLogic : MonoBehaviour
         xLastFrame = Input.mousePosition.y;
 
     }
-
     
 }
