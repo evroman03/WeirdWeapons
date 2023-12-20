@@ -9,7 +9,8 @@ public class ViewResizer : MonoBehaviour
     [SerializeField] private List<RenderTexture> RTs = new List<RenderTexture>();
     RectTransform rectT;
     RectTransform imageRect;
-    int heightResize = 0;
+    float heightResize = 0;
+    float widthResize = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -23,14 +24,9 @@ public class ViewResizer : MonoBehaviour
         //UPDATE INGAME SIZE
         foreach (var tex in textures)
         {
-            heightResize = 0;
+            heightResize = rectT.sizeDelta.y;
+            widthResize = rectT.sizeDelta.x;
             imageRect = tex.GetComponent<RectTransform>();
-
-            while ((float)(heightResize / rectT.sizeDelta.x) < (float)(9f / 16f))
-            {
-                heightResize++;
-            }
-            Debug.Log((heightResize + " / " + rectT.sizeDelta.x) + "Ratio");
 
             //Sets the size of the RawImage's RectTransform to match the Canvas
             imageRect.sizeDelta = new Vector2(rectT.sizeDelta.x, heightResize);
