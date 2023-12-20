@@ -5,10 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class Levels : MonoBehaviour
 {
-    private static int currentLevel = 0;
+    [SerializeField] string sendToLevel;
     public void nextLevel()
     {
-        currentLevel++;
-        SceneManager.LoadSceneAsync(currentLevel);
+        SceneManager.LoadSceneAsync(sendToLevel);
     }
 }

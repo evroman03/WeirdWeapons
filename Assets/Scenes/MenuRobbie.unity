@@ -819,6 +819,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b74e0678104fe104cbcd8a1dd94a5d58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sendToLevel: ElijahScene
 --- !u!1 &1629770565
 GameObject:
   m_ObjectHideFlags: 0
