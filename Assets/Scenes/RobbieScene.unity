@@ -817,7 +817,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b733629ff6304144a8e9ff92e507aeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  max: 80
+  max: 70
   min: -10
 --- !u!4 &1260428220 stripped
 Transform:
