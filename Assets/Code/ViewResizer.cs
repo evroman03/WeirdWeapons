@@ -20,16 +20,24 @@ public class ViewResizer : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {   
+    {
+        //Reset the render textures to avoid hall of mirrors effect. 
+        foreach (var rt in RTs)
+        {
+            rt.Release(); // Release the current render texture
+            rt.Create();
+        }
         //UPDATE INGAME SIZE
         foreach (var tex in textures)
         {
+
             heightResize = rectT.sizeDelta.y;
             widthResize = rectT.sizeDelta.x;
             imageRect = tex.GetComponent<RectTransform>();
 
             //Sets the size of the RawImage's RectTransform to match the Canvas
             imageRect.sizeDelta = new Vector2(rectT.sizeDelta.x, heightResize);
+
 
 
         }

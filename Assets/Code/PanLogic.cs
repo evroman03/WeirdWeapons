@@ -15,7 +15,9 @@ public class PanLogic : MonoBehaviour
     private float xRotation = 0;
     [SerializeField] private float max = 45;
     [SerializeField] private float min = -10;
-    private float rBand = 0; 
+    private float rBand = 0;
+
+    public float panShaken = 0;
 
     void Start()
     {
@@ -29,6 +31,9 @@ public class PanLogic : MonoBehaviour
 
     private void OldMove()
     {
+        //Updates panShaken for the meter. 
+        panShaken = Mathf.Abs(Input.mousePosition.y - xLastFrame);
+
         //Adds 1/5 the difference of where the mouse was last framw to where it is now to the rotation of the pan. 
         xRotation += (Input.mousePosition.y - xLastFrame) / 5;
 
