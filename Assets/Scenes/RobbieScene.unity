@@ -150,7 +150,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.5, g: 0.5, b: 0.5, a: 0}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -216,7 +216,6 @@ GameObject:
   m_Component:
   - component: {fileID: 503139993}
   - component: {fileID: 503139991}
-  - component: {fileID: 503139992}
   m_Layer: 0
   m_Name: UICam
   m_TagString: MainCamera
@@ -275,14 +274,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &503139992
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 503139990}
-  m_Enabled: 1
 --- !u!4 &503139993
 Transform:
   m_ObjectHideFlags: 0
@@ -292,7 +283,7 @@ Transform:
   m_GameObject: {fileID: 503139990}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -62.7, y: 0.612, z: -10}
+  m_LocalPosition: {x: 3.2, y: 0.612, z: -19.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -477,7 +468,7 @@ GameObject:
   - component: {fileID: 923663724}
   - component: {fileID: 923663723}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: PlaceHolderBird
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -673,7 +664,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.4528302, g: 0.4528302, b: 0.4528302, a: 0}
+  m_BackGroundColor: {r: 0, g: 0.48334143, b: 0.6792453, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -848,8 +839,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textures:
   - {fileID: 598755519}
+  - {fileID: 1340071025}
   RTs:
   - {fileID: 8400000, guid: b65503ae4fed946448fb58675f81fccf, type: 2}
+  - {fileID: 8400000, guid: 78975f5c59e51434f89df9186af56b5e, type: 2}
 --- !u!1001 &1260428215
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -951,7 +944,7 @@ GameObject:
   - component: {fileID: 1296867642}
   - component: {fileID: 1296867641}
   m_Layer: 0
-  m_Name: Cube (1)
+  m_Name: PlaceHolderBody
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1251,7 +1244,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -6.9000015, y: 0}
+  m_AnchoredPosition: {x: -6.9000244, y: 0}
   m_SizeDelta: {x: 10, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1719938048
