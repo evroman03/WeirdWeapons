@@ -21,15 +21,14 @@ public class CookingMeter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Mathf.Abs(this.gameObject.transform.position.y) >= 28)
-        {
-            return;
-        }
+        //Increment meter if within desired range. 
+        if (Mathf.Abs(this.gameObject.transform.position.y) < 28)
+            translate += panLogic.panShaken / 100;
 
-
-
-        translate += panLogic.panShaken / 100;
+        //Passive meter lowering. 
         translate -= decayRate * Time.deltaTime;
+
+        //Transform shrimp. 
         this.gameObject.transform.position = new Vector3 (this.gameObject.transform.position.x, translate, this.gameObject.transform.position.z);
     }
 }
