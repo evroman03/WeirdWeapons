@@ -8,30 +8,41 @@ public class PlayerScript : MonoBehaviour
 
     [SerializeField] private float moveSpeed = 100f;
 
+    private PlayerControls playerControls;
 
     private Rigidbody rb;
     private Vector3 moveDirection;
     private PlayerInput playerInput;
-    private InputAction moveAction, jumpAction, interactAction, crouchAction, stirAction;
+    private InputAction moveAction;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
         playerInput = GetComponent<PlayerInput>();
 
+        playerControls = new PlayerControls();
+        playerControls.ShrimpActionMap.Enable();
+
+        playerControls.ShrimpActionMap.Crouch.performed += ctx => Crouch();
+        playerControls.ShrimpActionMap.Jump.performed += ctx => Jump();
+        playerControls.ShrimpActionMap.Interact.performed += ctx => Interact();
+
         moveAction = playerInput.actions.FindAction("Move");
-        jumpAction = playerInput.actions.FindAction("Jump");
-        interactAction = playerInput.actions.FindAction("Interact");
-        crouchAction = playerInput.actions.FindAction("Crouch");
-        stirAction = playerInput.actions.FindAction("Stir");
-
 
     }
-    private void FixedUpdate()
+    private void Crouch()
     {
-        MovePlayer();
-        //if (stirAction.ReadValue<bool>() { print("HELLO"); }
+        print("HELLO");
     }
+    private void Jump()
+    {
+        print("HELLO2");
+    }
+    private void Interact()
+    {
+        print("HELLO3");
+    }
+
     void MovePlayer()
     {
         moveDirection = new Vector3
@@ -39,5 +50,10 @@ public class PlayerScript : MonoBehaviour
             0, 
             (Mathf.Clamp((moveAction.ReadValue<Vector2>().y * moveSpeed), int.MinValue, moveSpeed)));
         rb.AddForce(moveDirection);
+    }
+    private void FixedUpdate()
+    {
+        MovePlayer();
+        //if (stirAction.ReadValue<bool>() { print("HELLO"); }
     }
 }
