@@ -6,7 +6,6 @@ TagManager:
   tags:
   - ShrimpMeter
   - Pan
-  - Removable
   layers:
   - Default
   - TransparentFX

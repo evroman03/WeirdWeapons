@@ -4,20 +4,5 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes:
-  - enabled: 1
-    path: Assets/Scenes/MenuRobbie.unity
-    guid: 72d34415a8723024a88aaa45eff458a7
-  - enabled: 1
-    path: Assets/Scenes/ElijahScene.unity
-    guid: 6ee2cb410c90d194eb938a169219d4f1
-  - enabled: 1
-    path: Assets/Scenes/RobbieScene.unity
-    guid: 4fc2066dac3444347a3b411bcec00eb1
-  - enabled: 1
-    path: Assets/Scenes/Main.unity
-    guid: 9fc0d4010bbf28b4594072e72b8655ab
-  - enabled: 1
-    path: Assets/Scenes/DeathScene.unity
-    guid: f411c0e87822f9440afbf86a69f453ed
+  m_Scenes: []
   m_configObjects: {}
