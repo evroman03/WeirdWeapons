@@ -6,6 +6,8 @@ TagManager:
   tags:
   - ShrimpMeter
   - Pan
+  - Ground
+  - HeadForCamera
   layers:
   - Default
   - TransparentFX

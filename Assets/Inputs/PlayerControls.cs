@@ -89,6 +89,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Look"",
+                    ""type"": ""Value"",
+                    ""id"": ""e2bc41ba-41cb-4663-af00-29d96a73ca7e"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -212,6 +221,17 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""84cd6b7b-000f-4755-a671-27f08b35d693"",
+                    ""path"": ""<Mouse>/delta"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Look"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -227,6 +247,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_ShrimpActionMap_Crouch = m_ShrimpActionMap.FindAction("Crouch", throwIfNotFound: true);
         m_ShrimpActionMap_Interact = m_ShrimpActionMap.FindAction("Interact", throwIfNotFound: true);
         m_ShrimpActionMap_Stir = m_ShrimpActionMap.FindAction("Stir", throwIfNotFound: true);
+        m_ShrimpActionMap_Look = m_ShrimpActionMap.FindAction("Look", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -295,6 +316,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_ShrimpActionMap_Crouch;
     private readonly InputAction m_ShrimpActionMap_Interact;
     private readonly InputAction m_ShrimpActionMap_Stir;
+    private readonly InputAction m_ShrimpActionMap_Look;
     public struct ShrimpActionMapActions
     {
         private @PlayerControls m_Wrapper;
@@ -306,6 +328,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @Crouch => m_Wrapper.m_ShrimpActionMap_Crouch;
         public InputAction @Interact => m_Wrapper.m_ShrimpActionMap_Interact;
         public InputAction @Stir => m_Wrapper.m_ShrimpActionMap_Stir;
+        public InputAction @Look => m_Wrapper.m_ShrimpActionMap_Look;
         public InputActionMap Get() { return m_Wrapper.m_ShrimpActionMap; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -336,6 +359,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Stir.started += instance.OnStir;
             @Stir.performed += instance.OnStir;
             @Stir.canceled += instance.OnStir;
+            @Look.started += instance.OnLook;
+            @Look.performed += instance.OnLook;
+            @Look.canceled += instance.OnLook;
         }
 
         private void UnregisterCallbacks(IShrimpActionMapActions instance)
@@ -361,6 +387,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Stir.started -= instance.OnStir;
             @Stir.performed -= instance.OnStir;
             @Stir.canceled -= instance.OnStir;
+            @Look.started -= instance.OnLook;
+            @Look.performed -= instance.OnLook;
+            @Look.canceled -= instance.OnLook;
         }
 
         public void RemoveCallbacks(IShrimpActionMapActions instance)
@@ -387,5 +416,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnCrouch(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
         void OnStir(InputAction.CallbackContext context);
+        void OnLook(InputAction.CallbackContext context);
     }
 }
