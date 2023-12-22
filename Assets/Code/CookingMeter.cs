@@ -25,6 +25,7 @@ public class CookingMeter : MonoBehaviour
 
     //IceSprite
     [SerializeField] private GameObject iceSprite;
+    [SerializeField] private GameObject fireSprite;
 
     // Start is called before the first frame update
     void Start()
@@ -93,8 +94,7 @@ public class CookingMeter : MonoBehaviour
     }
 
     private void ApplyTempEffect()
-    {
-        int ice = 0;
+    { 
         if (this.gameObject.transform.position.y > -5)
             iceSprite.GetComponent<IceCreep>().setIce(9);
         if (this.gameObject.transform.position.y < -10)
@@ -113,6 +113,13 @@ public class CookingMeter : MonoBehaviour
             iceSprite.GetComponent<IceCreep>().setIce(6);
         if (this.gameObject.transform.position.y == -28)
             iceSprite.GetComponent<IceCreep>().setIce(7);
+
+        if (this.gameObject.transform.position.y < 5)
+            fireSprite.GetComponent<CanvasRenderer>().SetAlpha(0);
+        if (this.gameObject.transform.position.y > 5)
+            fireSprite.GetComponent<CanvasRenderer>().SetAlpha(this.gameObject.transform.position.y / 28);
+
+
     }
 
 }

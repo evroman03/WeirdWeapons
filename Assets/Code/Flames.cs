@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,6 +13,8 @@ public class Flames : MonoBehaviour
     Stopwatch fireTimer = new Stopwatch();
 
     int currentFrame = 0;
+
+    public int flameDensity = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -29,6 +32,7 @@ public class Flames : MonoBehaviour
             if (currentFrame > 11)
                 currentFrame = 0;
             this.gameObject.GetComponent<Image>().sprite = sprites[currentFrame];
+            this.gameObject.GetComponent<CanvasRenderer>().SetAlpha(0);
         }
     }
 }
