@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.AI;
@@ -35,7 +36,9 @@ public class PepperEnemyScript : MonoBehaviour
     [SerializeField] GameObject body;
     bool dieNextFrame = false;
 
-
+    //Sounds
+    [SerializeField] private AudioSource belch;
+    private Stopwatch belchCooldown = new Stopwatch();
 
     // Start is called before the first frame update
     void Start()
@@ -45,6 +48,8 @@ public class PepperEnemyScript : MonoBehaviour
 
         flame.GetComponent<Renderer>().enabled = false;
         flame.GetComponent<BoxCollider>().enabled = false;
+
+        belchCooldown.Start();
     }
 
     // Update is called once per frame
@@ -63,7 +68,6 @@ public class PepperEnemyScript : MonoBehaviour
 
 
         //If enemy HP <= 0, kills enemy
-        ///CURRENTLY SHOULD SPAWN BODY, BUT DOES NOT.
         if (HP <= 0 )
         {
             if (!dieNextFrame)
@@ -71,6 +75,7 @@ public class PepperEnemyScript : MonoBehaviour
                 GameObject corpse = Instantiate(body);
                 corpse.transform.position = this.transform.position;
                 corpse.transform.rotation = this.transform.rotation;
+                corpse.transform.localScale = this.transform.localScale ;
             }
 
             if (dieNextFrame)
@@ -126,6 +131,7 @@ public class PepperEnemyScript : MonoBehaviour
         {
 
             //Attack go here
+            belchIfPossible();
             flame.GetComponent<Renderer>().enabled = true;
             flame.GetComponent<BoxCollider>().enabled = true;
             ////////////////
@@ -143,5 +149,14 @@ public class PepperEnemyScript : MonoBehaviour
         alreadyAttacked = false;
         flame.GetComponent<Renderer>().enabled = false;
         flame.GetComponent<BoxCollider>().enabled = false;
+    }
+
+    private void belchIfPossible()
+    {
+        if (belchCooldown.ElapsedMilliseconds > 5000)
+        {
+            belch.Play();
+            belchCooldown.Reset();
+        }
     }
 }

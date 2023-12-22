@@ -20,9 +20,11 @@ public class CookingMeter : MonoBehaviour
     Stopwatch Stopwatch = new Stopwatch();
 
     Stopwatch cooldownTimer = new Stopwatch();
-
-
     public int heat = 0;
+
+
+    //IceSprite
+    [SerializeField] private GameObject iceSprite;
 
     // Start is called before the first frame update
     void Start()
@@ -61,6 +63,9 @@ public class CookingMeter : MonoBehaviour
         //Adjusts rice meter accordingly.
         HPBAR.GetComponent<RectTransform>().sizeDelta = new Vector2(HPBAR.GetComponent<RectTransform>().sizeDelta.x, 100 * (HP / maxHP));
 
+        //Adjusts temp effect
+        ApplyTempEffect();
+
         //If player health <= 0, kills player. 
         if (HP == 0)
         {
@@ -85,6 +90,29 @@ public class CookingMeter : MonoBehaviour
     private void ResetTemp()
     {
         heat = 0;
+    }
+
+    private void ApplyTempEffect()
+    {
+        int ice = 0;
+        if (this.gameObject.transform.position.y > -5)
+            iceSprite.GetComponent<IceCreep>().setIce(9);
+        if (this.gameObject.transform.position.y < -10)
+            iceSprite.GetComponent<IceCreep>().setIce(0);
+        if (this.gameObject.transform.position.y < -13)
+            iceSprite.GetComponent<IceCreep>().setIce(1);
+        if (this.gameObject.transform.position.y < -15)
+            iceSprite.GetComponent<IceCreep>().setIce(2);
+        if (this.gameObject.transform.position.y < -17)
+            iceSprite.GetComponent<IceCreep>().setIce(3);
+        if (this.gameObject.transform.position.y < -21)
+            iceSprite.GetComponent<IceCreep>().setIce(4);
+        if (this.gameObject.transform.position.y < -23)
+            iceSprite.GetComponent<IceCreep>().setIce(5);
+        if (this.gameObject.transform.position.y < -25)
+            iceSprite.GetComponent<IceCreep>().setIce(6);
+        if (this.gameObject.transform.position.y == -28)
+            iceSprite.GetComponent<IceCreep>().setIce(7);
     }
 
 }

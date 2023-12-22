@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class ItemPickup : MonoBehaviour
 {
-
+    [SerializeField] private AudioSource pickupSFX;
     [SerializeField] private GameObject eToPickUp;
 
     bool canBePickedUp = false;
@@ -14,7 +14,7 @@ public class ItemPickup : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -28,9 +28,10 @@ public class ItemPickup : MonoBehaviour
             {
                 GameObject.FindGameObjectWithTag("ShrimpMeter").GetComponent<CookingMeter>().HP += 5;
             }
+            pickupSFX.Play();
 
-
-            Destroy(gameObject);
+            this.gameObject.GetComponent<Renderer>().enabled = false;
+            this.gameObject.GetComponent<SphereCollider>().enabled = false;
         }
     }
 
