@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 public class PlayerScript : MonoBehaviour
 {
 
-    [SerializeField] private float moveSpeed, gravityValue, jumpHeight, dragGround, dragAir, sensitivity;
+    [SerializeField] private float moveSpeed, gravityValue, jumpHeight, dragGround, dragAir, deadZone;
     [SerializeField] private bool isCrouching, isGrounded;
 
     private PlayerControls playerControls;
@@ -20,10 +20,10 @@ public class PlayerScript : MonoBehaviour
     private void Start()
     {
         Cursor.visible= false;
-        moveSpeed = 3;
+        moveSpeed = 10;
         gravityValue = -9.81f;
         jumpHeight = 5f;
-        sensitivity = 25;
+        deadZone = 0;
         dragGround = 3.5f;
         dragAir = -0.25f;
         isCrouching = false;
@@ -51,7 +51,6 @@ public class PlayerScript : MonoBehaviour
     
     private void Jump()
     {
-        print("HERE");
         if (isGrounded) 
         { 
             rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z); //Make sure the jump is the same every time
@@ -86,6 +85,9 @@ public class PlayerScript : MonoBehaviour
     }
     private void Update()
     {
+        isGrounded = Physics.Raycast(transform.position, Vector3.down, ((transform.localScale.y * .5f) + 0.25f));
+
+
         if (isGrounded && moveDirection.y < 0)
         {
             moveDirection.y = 0f;
@@ -94,7 +96,12 @@ public class PlayerScript : MonoBehaviour
         {
             moveDirection.y += gravityValue * Time.deltaTime;
         }
-        transform.rotation = Quaternion.Euler(0f, yRotation, 0f);
+        if(yRotation > deadZone || yRotation < -deadZone)
+        {
+            transform.rotation = Quaternion.Euler(0f, yRotation, 0f);
+            print(yRotation);
+        }
+       
         MovePlayer();
         SpeedLimit();
         
