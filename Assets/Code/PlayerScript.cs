@@ -16,6 +16,7 @@ public class PlayerScript : MonoBehaviour
     private Vector3 moveDirection;
     private Vector3 movement;
 
+
     private void Start()
     {
         Cursor.visible= false;
