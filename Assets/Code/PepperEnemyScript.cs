@@ -33,6 +33,9 @@ public class PepperEnemyScript : MonoBehaviour
     //HP / Alive
     public float HP = 5;
     [SerializeField] GameObject body;
+    bool dieNextFrame = false;
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -59,20 +62,26 @@ public class PepperEnemyScript : MonoBehaviour
             Attacking();
 
 
-
+        //If enemy HP <= 0, kills enemy
+        ///CURRENTLY SHOULD SPAWN BODY, BUT DOES NOT.
         if (HP <= 0 )
         {
-            Invoke(nameof(spawnBody), 500);
-            Destroy(this.gameObject);
+            if (!dieNextFrame)
+            {
+                GameObject corpse = Instantiate(body);
+                corpse.transform.position = this.transform.position;
+                corpse.transform.rotation = this.transform.rotation;
+            }
+
+            if (dieNextFrame)
+                Destroy(this.gameObject);
+
+            dieNextFrame = true;
         }
 
     }
 
-    void spawnBody()
-    {
-        Instantiate(body, this.transform);
-    }
-
+    //To be called if no player found. 
     private void Patroling()
     {
         if (!walkPointSet)
@@ -87,6 +96,7 @@ public class PepperEnemyScript : MonoBehaviour
             walkPointSet = false;
     }
 
+    //To be called when looking for a random destination. 
     private void SearchWalkPoint()
     {
 
@@ -99,11 +109,13 @@ public class PepperEnemyScript : MonoBehaviour
             walkPointSet = true;
     }
 
+    //To be called when enemy spots player.
     private void Chasing()
     {
         agent.SetDestination(player.transform.position);
     }
 
+    //To be called when enemy is within attack range of player. 
     private void Attacking()
     {
         agent.SetDestination(transform.position);
@@ -125,6 +137,7 @@ public class PepperEnemyScript : MonoBehaviour
 
     }
 
+    //Makes attack invisible if player runs outside of range. 
     private void ResetAttack()
     {
         alreadyAttacked = false;

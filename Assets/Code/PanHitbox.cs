@@ -21,40 +21,32 @@ public class NewBehaviourScript : MonoBehaviour
 
     private void Update()
     {
+        //If the pan is headed downwards and would hit an enemy, applies damage based on the magnitude of the downward motion of the pan.
         if ((panLogic.headedDown && o != null) && o.GameObject().tag.Equals("Enemy"))
         {
             PepperEnemyScript p = o.gameObject.GetComponent<PepperEnemyScript>();
             p.HP -= panLogic.panShaken * Time.deltaTime;
-            Debug.Log("Hit for: " + panLogic.panShaken * Time.deltaTime + " ======================================================");
+            Debug.Log(o.gameObject.name + " hit for: " + panLogic.panShaken * Time.deltaTime);
         }
     }
 
 
-
+    //Methods for deciding if player is looking at enemy.
     private void OnTriggerEnter(Collider other)
-    {
-        Debug.Log("==========================INPING============================");
-        o = other;
+    {        
+        if (other.gameObject.tag.Equals("Enemy"))
+        {
+            o = other;
+        }
         eligibleToHit = true;
     }
 
     private void OnTriggerExit(Collider other)
     {
-        Debug.Log("==========================INPING============================");
-        o = null;
+        if (other.gameObject.tag.Equals("Enemy"))
+        {
+            o = null;
+        }
         eligibleToHit = false;
     }
-
-
-    public void changeTemp(int temp)
-    {
-        Invoke(nameof(resetTemp), 1000);
-
-    }
-
-    private void resetTemp()
-    {
-        
-    }
-
 }

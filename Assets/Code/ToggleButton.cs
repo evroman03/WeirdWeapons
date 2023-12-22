@@ -17,6 +17,7 @@ public class ToggleButton : MonoBehaviour
         sprite.enabled = false;
     }
 
+    //Makes a button visible and useable or invisible and unuseable
     public void ToggleTheButton()
     {
         if (button.enabled == true)

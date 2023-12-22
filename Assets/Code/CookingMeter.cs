@@ -19,6 +19,8 @@ public class CookingMeter : MonoBehaviour
 
     Stopwatch Stopwatch = new Stopwatch();
 
+    Stopwatch cooldownTimer = new Stopwatch();
+
 
     public int heat = 0;
 
@@ -31,6 +33,7 @@ public class CookingMeter : MonoBehaviour
         panLogic = pan.GetComponent<PanLogic>();
 
         Stopwatch.Start();
+        cooldownTimer.Start();
     }
 
     // Update is called once per frame
@@ -48,14 +51,17 @@ public class CookingMeter : MonoBehaviour
         if ((this.gameObject.transform.position.y < 28 && heat > 0) || (this.gameObject.transform.position.y > -28 && heat < 0))
             translate += heat * Time.deltaTime;
 
+        //If temp gague too high or low, damages player. 
         if (Mathf.Abs(this.gameObject.transform.position.y) >= 28 && Stopwatch.ElapsedMilliseconds > 500)
         {
             Stopwatch.Restart();
             HP--;
         }
 
+        //Adjusts rice meter accordingly.
         HPBAR.GetComponent<RectTransform>().sizeDelta = new Vector2(HPBAR.GetComponent<RectTransform>().sizeDelta.x, 100 * (HP / maxHP));
 
+        //If player health <= 0, kills player. 
         if (HP == 0)
         {
             SceneManager.LoadScene("DeathRobbie");
@@ -64,4 +70,21 @@ public class CookingMeter : MonoBehaviour
         //Transform shrimp. 
         this.gameObject.transform.position = new Vector3 (this.gameObject.transform.position.x, translate, this.gameObject.transform.position.z);
     }
+
+    //Method accessible to outsiders to modify the rate at which the shrimp heats / cools
+    public void ApplyHeat(int temp)
+    {
+        if (cooldownTimer.ElapsedMilliseconds > 500)
+        {
+            cooldownTimer.Restart();
+            heat = temp;
+            Invoke(nameof(ResetTemp), 1);
+        }
+    }
+
+    private void ResetTemp()
+    {
+        heat = 0;
+    }
+
 }

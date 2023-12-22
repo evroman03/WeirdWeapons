@@ -8,6 +8,7 @@ public class LevelManager : MonoBehaviour
 {
     [SerializeField] private string loadLevel;
 
+    //Loads given level by name
     public void LoadLevel()
     {
         SceneManager.LoadSceneAsync(loadLevel);

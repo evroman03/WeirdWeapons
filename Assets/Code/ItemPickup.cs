@@ -20,8 +20,10 @@ public class ItemPickup : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //If player falls within desired range of object and presses E, it can be picked up. 
         if (canBePickedUp && Input.GetKeyDown(KeyCode.E))
         {
+            //If item picked up is a rice bag.
             if (this.gameObject.tag.Equals("RiceBag"))
             {
                 GameObject.FindGameObjectWithTag("ShrimpMeter").GetComponent<CookingMeter>().HP += 5;
@@ -33,6 +35,7 @@ public class ItemPickup : MonoBehaviour
     }
 
 
+    //For detecting when the player is in valid range of the object.
     private void OnTriggerEnter(Collider other)
     {
         canBePickedUp = true;

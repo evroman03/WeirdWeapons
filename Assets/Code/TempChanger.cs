@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class TempChanger : MonoBehaviour
 {
-
+    [SerializeField] int heatToBeApplied = 15;
     private Stopwatch timer = new Stopwatch();
 
     private GameObject shrimp;
@@ -22,21 +22,12 @@ public class TempChanger : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
+    //While the player is within this trigger, applies this temperature to them. 
     void OnTriggerStay(Collider other)
     {
-        if (timer.ElapsedMilliseconds > 500)
-        {
-            cookingMeter.heat = 15;
-            Invoke(nameof(resetTemp), 1000);
-        }
-
-    }
-
-    void resetTemp()
-    {
-        cookingMeter.heat = 0;
+        cookingMeter.ApplyHeat(heatToBeApplied);
     }
 }
