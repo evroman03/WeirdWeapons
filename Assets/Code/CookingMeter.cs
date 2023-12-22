@@ -12,7 +12,8 @@ public class CookingMeter : MonoBehaviour
     PanLogic panLogic = null;
 
     [SerializeField] private GameObject HPBAR = null;
-    [SerializeField] int HP = 10; 
+    public float HP = 10;
+    private float maxHP;
 
     float translate = 0;
 
@@ -24,6 +25,8 @@ public class CookingMeter : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        maxHP = HP;
+
         pan = GameObject.FindGameObjectWithTag("Pan");
         panLogic = pan.GetComponent<PanLogic>();
 
@@ -49,8 +52,9 @@ public class CookingMeter : MonoBehaviour
         {
             Stopwatch.Restart();
             HP--;
-            HPBAR.GetComponent<TextMeshProUGUI>().text = "HP: " + HP;
         }
+
+        HPBAR.GetComponent<RectTransform>().sizeDelta = new Vector2(HPBAR.GetComponent<RectTransform>().sizeDelta.x, 100 * (HP / maxHP));
 
         if (HP == 0)
         {

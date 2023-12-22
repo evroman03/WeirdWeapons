@@ -10,6 +10,7 @@ TagManager:
   - HeadForCamera
   - PanHitbox
   - Enemy
+  - RiceBag
   layers:
   - Default
   - TransparentFX

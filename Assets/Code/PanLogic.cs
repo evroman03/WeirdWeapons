@@ -15,7 +15,6 @@ public class PanLogic : MonoBehaviour
     private float xRotation = 0;
     [SerializeField] private float max = 45;
     [SerializeField] private float min = -10;
-    private float rBand = 0;
 
     //Publicly accessible values.
     public float panShaken = 0;

@@ -65,7 +65,6 @@ public class PlayerScript : MonoBehaviour
     private void SpeedLimit()
     {
         Vector3 flatVelocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
-        print(Math.Round(flatVelocity.magnitude, 2));
         if(flatVelocity.magnitude > moveSpeed)
         {
             Vector3 limitedVelocity = flatVelocity.normalized* moveSpeed;
