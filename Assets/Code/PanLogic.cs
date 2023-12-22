@@ -17,7 +17,9 @@ public class PanLogic : MonoBehaviour
     [SerializeField] private float min = -10;
     private float rBand = 0;
 
+    //Publicly accessible values.
     public float panShaken = 0;
+    public bool headedDown = false;
 
     void Start()
     {
@@ -36,6 +38,15 @@ public class PanLogic : MonoBehaviour
 
         //Adds 1/5 the difference of where the mouse was last framw to where it is now to the rotation of the pan. 
         xRotation += (Input.mousePosition.y - xLastFrame) / 5;
+
+        if (Input.mousePosition.y - xLastFrame > 0)
+        {
+            headedDown = true;
+        }
+        else
+        {
+            headedDown = false;
+        }
 
         //If it wants to rotate the pan beyond the allowed range, corrects it to fall within range.
         if (xRotation > max)

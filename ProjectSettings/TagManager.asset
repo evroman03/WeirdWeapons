@@ -8,6 +8,8 @@ TagManager:
   - Pan
   - Ground
   - HeadForCamera
+  - PanHitbox
+  - Enemy
   layers:
   - Default
   - TransparentFX

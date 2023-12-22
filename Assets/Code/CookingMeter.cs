@@ -18,6 +18,9 @@ public class CookingMeter : MonoBehaviour
 
     Stopwatch Stopwatch = new Stopwatch();
 
+
+    public int heat = 0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -37,6 +40,10 @@ public class CookingMeter : MonoBehaviour
         //Passive meter lowering. 
         if (this.gameObject.transform.position.y > -28)
             translate -= decayRate * Time.deltaTime;
+
+        //Heat Management 
+        if ((this.gameObject.transform.position.y < 28 && heat > 0) || (this.gameObject.transform.position.y > -28 && heat < 0))
+            translate += heat * Time.deltaTime;
 
         if (Mathf.Abs(this.gameObject.transform.position.y) >= 28 && Stopwatch.ElapsedMilliseconds > 500)
         {

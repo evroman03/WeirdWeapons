@@ -30,7 +30,9 @@ public class PepperEnemyScript : MonoBehaviour
     [SerializeField] private float sightRange, attackRange;
     bool playerInSight, playerInAttack;
 
-
+    //HP / Alive
+    public float HP = 5;
+    [SerializeField] GameObject body;
 
     // Start is called before the first frame update
     void Start()
@@ -55,6 +57,13 @@ public class PepperEnemyScript : MonoBehaviour
             Chasing();
         if (playerInSight && playerInAttack)
             Attacking();
+
+        if (HP <= 0 )
+        {
+            Instantiate(body, this.transform);
+            Destroy(this.gameObject);
+        }
+
     }
 
     private void Patroling()
@@ -100,8 +109,6 @@ public class PepperEnemyScript : MonoBehaviour
             //Attack go here
             flame.GetComponent<Renderer>().enabled = true;
             flame.GetComponent<BoxCollider>().enabled = true;
-
-
             ////////////////
 
             alreadyAttacked = true;

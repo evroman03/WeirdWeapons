@@ -1,13 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 
 public class TempChanger : MonoBehaviour
 {
+
+    private Stopwatch timer = new Stopwatch();
+
+    private GameObject shrimp;
+    private CookingMeter cookingMeter;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        shrimp = GameObject.FindGameObjectWithTag("ShrimpMeter");
+        cookingMeter = shrimp.GetComponent<CookingMeter>();
+        timer.Start();
     }
 
     // Update is called once per frame
@@ -16,13 +25,12 @@ public class TempChanger : MonoBehaviour
         
     }
 
-    private void OnCollisionStay(Collision collision)
+    void OnTriggerStay(Collider other)
     {
-        Debug.Log("Fire!");
-    }
+        if (timer.ElapsedMilliseconds > 500)
+        {
+            cookingMeter.heat = 15;
+        }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        Debug.Log("Fire!1");
     }
 }
