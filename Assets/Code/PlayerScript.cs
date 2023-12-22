@@ -11,7 +11,7 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private bool isCrouching, isGrounded;
 
     private PlayerControls playerControls;
-    private float yRotation;
+    private float yMouse, xMouse;
     private Rigidbody rb;
     private Vector3 moveDirection;
     private Vector3 movement;
@@ -23,7 +23,7 @@ public class PlayerScript : MonoBehaviour
         moveSpeed = 10;
         gravityValue = -9.81f;
         jumpHeight = 5f;
-        deadZone = 0;
+        deadZone = 10;
         dragGround = 3.5f;
         dragAir = -0.25f;
         isCrouching = false;
@@ -42,7 +42,8 @@ public class PlayerScript : MonoBehaviour
         playerControls.ShrimpActionMap.Move.performed += ctx => movement =ctx.ReadValue<Vector2>();
         playerControls.ShrimpActionMap.Move.canceled += ctx => movement = Vector3.zero;
 
-        playerControls.ShrimpActionMap.Look.performed += ctx => yRotation += ctx.ReadValue<Vector2>().x;
+        playerControls.ShrimpActionMap.Look.performed += ctx => yMouse += ctx.ReadValue<Vector2>().x;
+        playerControls.ShrimpActionMap.Look.performed += ctx => xMouse += ctx.ReadValue<Vector2>().y;
     }
     private void Crouch()
     {
@@ -96,10 +97,10 @@ public class PlayerScript : MonoBehaviour
         {
             moveDirection.y += gravityValue * Time.deltaTime;
         }
-        if(yRotation > deadZone || yRotation < -deadZone)
+        if((xMouse !> deadZone) || xMouse !< -deadZone)
         {
-            transform.rotation = Quaternion.Euler(0f, yRotation, 0f);
-            print(yRotation);
+            transform.rotation = Quaternion.Euler(0f, yMouse, 0f);
+            print(xMouse);
         }
        
         MovePlayer();

@@ -3265,6 +3265,7 @@ MonoBehaviour:
   - {fileID: -701332780, guid: 594ee5d9b4e940f4a87e9564c71d8b12, type: 3}
   - {fileID: 1506960960, guid: 594ee5d9b4e940f4a87e9564c71d8b12, type: 3}
   - {fileID: -630775293, guid: 594ee5d9b4e940f4a87e9564c71d8b12, type: 3}
+  flameDensity: 0
 --- !u!4 &1521213589 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7108315128646928517, guid: f2db290b4cc62f444b6d1165926d3f6f, type: 3}
@@ -3729,6 +3730,7 @@ MonoBehaviour:
   HP: 10
   heat: 0
   iceSprite: {fileID: 7316633}
+  fireSprite: {fileID: 1389856852}
 --- !u!1001 &1902021544
 PrefabInstance:
   m_ObjectHideFlags: 0
