@@ -39,7 +39,7 @@ public class PanLogic : MonoBehaviour
         //Adds 1/5 the difference of where the mouse was last framw to where it is now to the rotation of the pan. 
         xRotation += (Input.mousePosition.y - xLastFrame) / 5;
 
-        if (Input.mousePosition.y - xLastFrame > 0)
+        if (Input.mousePosition.y - xLastFrame < 0)
         {
             headedDown = true;
         }

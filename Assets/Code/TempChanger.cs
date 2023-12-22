@@ -30,7 +30,13 @@ public class TempChanger : MonoBehaviour
         if (timer.ElapsedMilliseconds > 500)
         {
             cookingMeter.heat = 15;
+            Invoke(nameof(resetTemp), 1000);
         }
 
+    }
+
+    void resetTemp()
+    {
+        cookingMeter.heat = 0;
     }
 }

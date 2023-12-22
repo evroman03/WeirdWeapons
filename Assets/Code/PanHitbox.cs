@@ -11,7 +11,7 @@ public class NewBehaviourScript : MonoBehaviour
 
     private void Start()
     {
-        pan = GameObject.FindGameObjectWithTag("PanHitbox");
+        pan = GameObject.FindGameObjectWithTag("Pan");
         panLogic = pan.GetComponent<PanLogic>();
     }
 
@@ -20,7 +20,9 @@ public class NewBehaviourScript : MonoBehaviour
     {
         if (panLogic.headedDown && other.GameObject().tag.Equals("Enemy"))
         {
-            other.gameObject.GetComponent<PepperEnemyScript>().HP -= panLogic.panShaken;
+            PepperEnemyScript p = other.gameObject.GetComponent<PepperEnemyScript>();
+            p.HP -= panLogic.panShaken * Time.deltaTime;
+            Debug.Log("Hit for: " + panLogic.panShaken * Time.deltaTime + " ======================================================");
         }
     }
 

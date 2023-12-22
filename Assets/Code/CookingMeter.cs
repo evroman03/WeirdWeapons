@@ -57,7 +57,6 @@ public class CookingMeter : MonoBehaviour
             SceneManager.LoadScene("DeathRobbie");
         }
 
-
         //Transform shrimp. 
         this.gameObject.transform.position = new Vector3 (this.gameObject.transform.position.x, translate, this.gameObject.transform.position.z);
     }

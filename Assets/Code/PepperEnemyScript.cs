@@ -58,12 +58,19 @@ public class PepperEnemyScript : MonoBehaviour
         if (playerInSight && playerInAttack)
             Attacking();
 
+
+
         if (HP <= 0 )
         {
-            Instantiate(body, this.transform);
+            Invoke(nameof(spawnBody), 500);
             Destroy(this.gameObject);
         }
 
+    }
+
+    void spawnBody()
+    {
+        Instantiate(body, this.transform);
     }
 
     private void Patroling()

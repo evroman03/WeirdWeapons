@@ -585,7 +585,7 @@ GameObject:
   - component: {fileID: 603499008}
   m_Layer: 0
   m_Name: PanHitbox
-  m_TagString: Untagged
+  m_TagString: PanHitbox
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -624,8 +624,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1.9983336, z: 1}
-  m_Center: {x: 0, y: -0.05147165, z: 0}
+  m_Size: {x: 1, y: 1.9983336, z: 0.34008503}
+  m_Center: {x: 0, y: -0.05147165, z: -0.3299575}
 --- !u!114 &603499008
 MonoBehaviour:
   m_ObjectHideFlags: 0
