@@ -11,7 +11,7 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private bool isCrouching, isGrounded;
 
     private PlayerControls playerControls;
-    private float yMouse, xMouse;
+    public float XMouse, YMouse;
     private Rigidbody rb;
     private Vector3 moveDirection;
     private Vector3 movement;
@@ -42,9 +42,17 @@ public class PlayerScript : MonoBehaviour
         playerControls.ShrimpActionMap.Move.performed += ctx => movement =ctx.ReadValue<Vector2>();
         playerControls.ShrimpActionMap.Move.canceled += ctx => movement = Vector3.zero;
 
-        playerControls.ShrimpActionMap.Look.performed += ctx => yMouse += ctx.ReadValue<Vector2>().x;
-        playerControls.ShrimpActionMap.Look.performed += ctx => xMouse += ctx.ReadValue<Vector2>().y;
+        playerControls.ShrimpActionMap.Look.performed += ctx => XMouse += ctx.ReadValue<Vector2>().x;
+        //playerControls.ShrimpActionMap.Look.canceled += ctx => XMouse = 0;
+        playerControls.ShrimpActionMap.Look.performed += ctx => YMouse += ctx.ReadValue<Vector2>().y;
+        //playerControls.ShrimpActionMap.Look.canceled += ctx => YMouse = 0;
     }
+
+    private void Look_canceled(InputAction.CallbackContext obj)
+    {
+        throw new NotImplementedException();
+    }
+
     private void Crouch()
     {
         
@@ -87,8 +95,6 @@ public class PlayerScript : MonoBehaviour
     private void Update()
     {
         isGrounded = Physics.Raycast(transform.position, Vector3.down, ((transform.localScale.y * .5f) + 0.25f));
-
-
         if (isGrounded && moveDirection.y < 0)
         {
             moveDirection.y = 0f;
@@ -97,15 +103,19 @@ public class PlayerScript : MonoBehaviour
         {
             moveDirection.y += gravityValue * Time.deltaTime;
         }
-        if((xMouse !> deadZone) || xMouse !< -deadZone)
+        if((YMouse > deadZone) || YMouse < -deadZone)
         {
-            transform.rotation = Quaternion.Euler(0f, yMouse, 0f);
-            print(xMouse);
+            transform.rotation = Quaternion.Euler(0f, XMouse*1f, 0f);
+            print("HERE");
         }
-       
+        else
+        {
+            transform.rotation = Quaternion.Euler(0f, XMouse, 0f);
+            print("HEREHERE");
+        }
+        print(YMouse);
         MovePlayer();
-        SpeedLimit();
-        
+        SpeedLimit(); 
     }
     private void OnCollisionEnter(Collision collision)
     {

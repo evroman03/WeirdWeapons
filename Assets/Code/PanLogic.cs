@@ -10,6 +10,7 @@ using UnityEngine.InputSystem;
 
 public class PanLogic : MonoBehaviour
 {
+    private PlayerScript pS;
 
     private float xLastFrame = 0;
     private float xRotation = 0;
@@ -23,6 +24,10 @@ public class PanLogic : MonoBehaviour
     void Start()
     {
         Cursor.visible = false;
+        if(GameObject.FindGameObjectWithTag("Player")!=null)
+        {
+            pS = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerScript>();
+        }
     }
 
     void Update()
@@ -33,10 +38,13 @@ public class PanLogic : MonoBehaviour
     private void OldMove()
     {
         //Updates panShaken for the meter. 
-        panShaken = Mathf.Abs(Input.mousePosition.y - xLastFrame);
-
+        //panShaken = Mathf.Abs(Input.mousePosition.y - xLastFrame);
+        panShaken = Mathf.Abs(pS.YMouse - xLastFrame);
         //Adds 1/5 the difference of where the mouse was last framw to where it is now to the rotation of the pan. 
-        xRotation += (Input.mousePosition.y - xLastFrame) / 5;
+        //xRotation += (Input.mousePosition.y - xLastFrame) / 5;
+        xRotation += (pS.YMouse - xLastFrame) * .5f;
+
+
 
         if (Input.mousePosition.y - xLastFrame < 0)
         {
@@ -61,7 +69,8 @@ public class PanLogic : MonoBehaviour
         this.gameObject.transform.rotation = Quaternion.Euler(xRotation, -180, -90);
 
         //Saves the current mouse's position for next frame.
-        xLastFrame = Input.mousePosition.y;
+        //xLastFrame = Input.mousePosition.y;
+        xLastFrame = pS.YMouse;
     }
     
 }
