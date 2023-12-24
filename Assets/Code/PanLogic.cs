@@ -46,7 +46,7 @@ public class PanLogic : MonoBehaviour
 
 
 
-        if (Input.mousePosition.y - xLastFrame < 0)
+        if (pS.YMouse - xLastFrame < 0)
         {
             headedDown = true;
         }

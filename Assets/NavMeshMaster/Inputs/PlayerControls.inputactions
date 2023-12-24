@@ -72,7 +72,7 @@
                     "name": "Look",
                     "type": "Value",
                     "id": "e2bc41ba-41cb-4663-af00-29d96a73ca7e",
-                    "expectedControlType": "Vector2",
+                    "expectedControlType": "Axis",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true

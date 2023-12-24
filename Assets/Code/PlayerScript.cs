@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Animations;
 
 public class PlayerScript : MonoBehaviour
 {
 
-    [SerializeField] private float moveSpeed, gravityValue, jumpHeight, dragGround, dragAir, deadZone;
+    [SerializeField] private float moveSpeed, gravityValue, jumpHeight, dragGround, dragAir, deadZone, deadZone2;
     [SerializeField] private bool isCrouching, isGrounded;
 
     private PlayerControls playerControls;
@@ -15,15 +16,18 @@ public class PlayerScript : MonoBehaviour
     private Rigidbody rb;
     private Vector3 moveDirection;
     private Vector3 movement;
+    private Vector2 lastFrame = new Vector2(0,0);
 
 
     private void Start()
     {
         Cursor.visible= false;
+        Cursor.lockState= CursorLockMode.Locked;
         moveSpeed = 10;
         gravityValue = -9.81f;
         jumpHeight = 5f;
-        deadZone = 10;
+        deadZone = 0.01f;
+        deadZone2 = 5f;
         dragGround = 3.5f;
         dragAir = -0.25f;
         isCrouching = false;
@@ -46,11 +50,6 @@ public class PlayerScript : MonoBehaviour
         //playerControls.ShrimpActionMap.Look.canceled += ctx => XMouse = 0;
         playerControls.ShrimpActionMap.Look.performed += ctx => YMouse += ctx.ReadValue<Vector2>().y;
         //playerControls.ShrimpActionMap.Look.canceled += ctx => YMouse = 0;
-    }
-
-    private void Look_canceled(InputAction.CallbackContext obj)
-    {
-        throw new NotImplementedException();
     }
 
     private void Crouch()
@@ -92,6 +91,20 @@ public class PlayerScript : MonoBehaviour
         if (isGrounded) { rb.AddForce(moveDirection.normalized * moveSpeed, ForceMode.Force); }
         else { rb.AddForce(moveDirection.normalized, ForceMode.Force); } //Take this line out if you dont want to be able to move in midair
     }
+    void Look()
+    {
+        //float rotation = Mathf.Abs(XMouse-lastFrame.x);
+        if (XMouse>YMouse)
+        {
+            transform.rotation = Quaternion.Euler(0f, XMouse, 0f);
+        }
+        else
+        {
+            transform.rotation = Quaternion.Euler(0f, XMouse * deadZone, 0f);
+            print("HERE");
+        }
+        //lastFrame = new Vector2(XMouse, YMouse);
+    }
     private void Update()
     {
         isGrounded = Physics.Raycast(transform.position, Vector3.down, ((transform.localScale.y * .5f) + 0.25f));
@@ -103,18 +116,11 @@ public class PlayerScript : MonoBehaviour
         {
             moveDirection.y += gravityValue * Time.deltaTime;
         }
-        if((YMouse > deadZone) || YMouse < -deadZone)
-        {
-            transform.rotation = Quaternion.Euler(0f, XMouse*1f, 0f);
-            print("HERE");
-        }
-        else
-        {
-            transform.rotation = Quaternion.Euler(0f, XMouse, 0f);
-            print("HEREHERE");
-        }
-        print(YMouse);
+        
+        print("Y: "+Mathf.Abs(YMouse));
+        print("X: " + Mathf.Abs(XMouse));
         MovePlayer();
+        Look();
         SpeedLimit(); 
     }
     private void OnCollisionEnter(Collision collision)
